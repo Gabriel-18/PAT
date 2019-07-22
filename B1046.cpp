@@ -1,4 +1,5 @@
 #include<cstdio>
+// 双重条件验证 
 int main() {
 	int N;
 	int failA = 0, failB = 0;
@@ -11,7 +12,7 @@ int main() {
 		} else if(a1 + b1 != a2 && a1 + b1 == b2){
 			failA++;
 		}
-		printf("%d %d", failA, failB);
 	}
+	printf("%d %d", failA, failB);
 	return 0;
 } 

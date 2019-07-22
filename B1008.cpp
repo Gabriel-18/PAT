@@ -1,7 +1,7 @@
 #include<cstdio>
 int main() {
 	int a[110];
-	int n, m, count = 0;// count记录输出个数 
+//	int n, m, count = 0;// count记录输出个数 
 	scanf("%d%d", &n, &m);
 	m = m % n;// 修正m 
 	for(int i = 0; i < n; i++) {
