@@ -3,7 +3,7 @@ struct Poly {
 	int exp;
 	double cof;
 }poly[1001];
-
+//多项式乘法 
 double ans[2001];
 int main() {
 	int n, m, number = 0;
@@ -20,7 +20,8 @@ int main() {
 		scanf("%d %lf", &exp, &cof);
 		
 		for(int j = 0; j < n; j++) {
-			ans[exp + poly[j].exp] = cof * poly[j].cof;
+			// 多次累加 
+			ans[exp + poly[j].exp] += cof * poly[j].cof;
 		}
 	}
 	
