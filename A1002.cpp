@@ -22,7 +22,7 @@ int main() {
 		}
 	}
 	printf("%d", count);
-	for(int i = 0; i < max_n; i++) {
+	for(int i = max_n; i > 0; i++) {
 		if(p[i] != 0) {
 			printf(" %d %.1f", i, p[i]);
 		}

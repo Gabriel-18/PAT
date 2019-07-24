@@ -2,11 +2,11 @@
 #include<algorithm>
 using namespace std;
 const int MAXN = 100005;
-//A[i]存放i号到i+1的距离
+//A[i]存放i号到i+1的下一个距离
 //dis[i]存放1到达i号的距离 
 int dis[MAXN], A[MAXN];
 int main() {
-	printf("%d",dis[0]);
+//	printf("%d",dis[0]);
 	int sum = 0, query, n, left, right;
 	scanf("%d", &n);
 	

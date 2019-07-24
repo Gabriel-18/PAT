@@ -8,7 +8,7 @@ int main() {
 		long long result = a + b;
 		bool flag;
 		if(a > 0 && b > 0 && result < 0) {
-			flag = true;
+			flag = true; // ÕıÒç³öÎªtrue 
 		} else if(a < 0 && b < 0 && result >= 0) {
 			flag = false;
 		} else if(a + b > c) {
