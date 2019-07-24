@@ -6,11 +6,12 @@ int main() {
 	scanf("%d", &n);
 	int id, score;
 	for(int i = 0; i < n; i++) {
+		scanf("%d %d", &id, &score);
 		school[id] += score;
 	}
 	int max = -1;
 	int id1;
-	//×¢ï¿½ï¿½ß½ï¿½ 
+	//×¢Òâ±ß½ç 
 	for(int i = 1; i <= n; i++) {
 		if(max < school[i]) {
 			max = school[i];
