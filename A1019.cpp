@@ -18,6 +18,7 @@ int main() {
 	} while(n != 0);
 	
 	bool flag = Judge(z, num);
+	// 输出还是复制题目 不容易出错 
 	if(flag == true) printf("Yes\n");
 	else printf("No\n");
 	for(int i = num - 1; i >= 0; i--) {
