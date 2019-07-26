@@ -15,13 +15,15 @@ int main() {
 	int len4 = strlen(str4);
 	
 	int i;
+	//一个星期7天
+	//A B C D E F G 
 	for(i = 0; i < len1 && i < len2; i++ ){
 		if(str1[i] == str2[i] && str1[i] >='A' && str2[i] <= 'G') {
 			printf("%s ", week[str1[i] - 'A']);
 			break;
 		}
 	}
-	
+	//0 - 9 A - N  题目给的信息 
 	for(i++ ; i < len1 && i < len2; i++ ){
 		if(str1[i] == str2[i]) {
 			if(str1[i] >= '0' && str2[i] <= '9') {
