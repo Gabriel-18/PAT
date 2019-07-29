@@ -4,6 +4,7 @@
 using namespace std;
 int main() {
 	int n;
+	// 处理回车 
 	scanf("%d\n", &n);
 	string ans;
 	for (int i = 0; i < n; i++) {
