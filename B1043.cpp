@@ -8,8 +8,11 @@ int main() {
 	int len = strlen(str), sum = 0;
 	for (int i = 0; i < len; i++) {
 		for (int j = 0; j < 6; j++) { //// ±éÀúdict×Öµä 
-			hashTable[j]++;
+			if (str[i] == dict[j]) {
+					hashTable[j]++;
 			sum++; 
+			}
+		
 		} 
 		 
 	}
