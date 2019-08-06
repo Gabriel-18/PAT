@@ -25,7 +25,7 @@ int main() {
 	
 	sort(a, a + n);
 	for (i = 0; i < n; i++) {
-		int pos = Bin(0, n - i, m - a[i]);
+		int pos = Bin(0, n - 1, m - a[i]);
 		if (pos != -1 && i != pos) {
 			printf("%d %d\n", a[i], a[pos]);
 			break;
