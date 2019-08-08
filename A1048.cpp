@@ -9,10 +9,10 @@ void twoPointer(int n, int m) {
 	while (i < j) {
 		if (a[i] + a[j] == m) break;
 		else if (a[i] + a[j] < m) i++;
-		else j++;
+		else j--;
 	}
 	if (i < j) printf("%d %d", a[i], a[j]);
-	else printf(" No Solution");
+	else printf("No Solution");
 }
 
 int main() {
