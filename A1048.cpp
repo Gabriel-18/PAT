@@ -1,38 +1,28 @@
 #include<cstdio>
-#include<iostream>
+#include<cstring>
 #include<algorithm>
 using namespace std;
-int a[100010];
-
-// left right 0 n - 1 key is m - a[i] 
-int Bin(int left, int right, int key) {
-	int mid;
-	while (left <= right) {
-		mid = (left + right) / 2;
-		if (a[mid] == key) return mid;
-		else if (a[mid] > key) right = mid - 1;
-		else left = mid + 1;
+const int maxn = 100010;
+int a[maxn];
+void twoPointer(int n, int m) {
+	int i = 0, j = n - 1;
+	while (i < j) {
+		if (a[i] + a[j] == m) break;
+		else if (a[i] + a[j] < m) i++;
+		else j++;
 	}
-	return -1;
+	if (i < j) printf("%d %d", a[i], a[j]);
+	else printf(" No Solution");
 }
 
 int main() {
-	int i, n, m;
-	scanf("%d%d", &n, &m);
-	for (i = 0; i < n; i++) {
+	int n, m;
+	scanf("%d %d\n", &n, &m);
+	for (int i = 0; i < n; i++) {
 		scanf("%d", &a[i]);
 	}
-	
+	// ±ØÐëÏÈÅÅÐò 
 	sort(a, a + n);
-	for (i = 0; i < n; i++) {
-		int pos = Bin(0, n - 1, m - a[i]);
-		if (pos != -1 && i != pos) {
-			printf("%d %d\n", a[i], a[pos]);
-			break;
-		}
-	} 
-	
-	if (i == n) printf("No Solution");
+	twoPointer(n,m);
 	return 0;
 }
-
