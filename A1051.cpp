@@ -1,13 +1,17 @@
 #include <cstdio>
 #include <stack>
+#include <vector>
 using namespace std;
 const int maxn = 1010;
-int arr[maxn];
-stack<int> st;
+//int arr[maxn];
+
 // 感觉flag没啥屌用
 int main() {
     int m, n, T;
     scanf("%d%d%d", &m, &n, &T);
+    // 直接用vector就能忽略范围🐎???
+    vector<int> arr(n+1);
+    stack<int> st;
     while (T--) {
 
         while (!st.empty()) {
