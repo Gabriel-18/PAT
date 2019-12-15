@@ -22,7 +22,9 @@ int d[MAXV], w[MAXV], num[MAXV];
 bool vis[MAXV] = {false};
 
 void Dijkstra(int s) {
+    // 其他值
     fill(d, d + MAXV, INF);
+    // 0 -1
     memset(num, 0, sizeof(num));
     memset(w, 0, sizeof(w));
     d[s] = 0;
@@ -30,9 +32,10 @@ void Dijkstra(int s) {
     num[s] = 1;
     for (int i = 0; i < n; ++i) {
         // u 使得d[u] 最小
-        // MIN 存放最小的d[u]
+        // MIN 存放最小的d[u] 初始放个大值
         int u = -1, MIN = INF;
         for (int j = 0; j < n; ++j) {
+            // 没有被访问并且确实小
             if (vis[j] == false && d[j] < MIN) {
                 u = j;
                 MIN = d[j];
@@ -46,6 +49,7 @@ void Dijkstra(int s) {
         // 标记u为已访问
         vis[u] = true;
 
+        // 优化思路很容易
         for (int v = 0; v < n; ++v) {
             // 如果v未访问
             // 且u能到达v
@@ -54,17 +58,20 @@ void Dijkstra(int s) {
                 if (d[u] + G[u][v] < d[v]) {
                     d[v] = d[u] + G[u][v];
                     w[v] = w[u] + weight[v];
+                    // 优化后 更新
                     num[v] = num[u];
                 } else if (d[u] + G[u][v] == d[v]) {
                     // 以u为中介点时点权和更大
                     if (w[v] < w[u] + weight[v]) {
                         w[v] = w[u] + weight[v];
                     }
+                    // 两个加起来
                     num[v] += num[u];
                 }
             }
-            }
-       }
+        }
+
+    }
 }
 
 int main() {
