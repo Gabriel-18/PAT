@@ -36,12 +36,14 @@ void Dijkstra(int s) {
             }
         }
 
+        // 找不到小于INF的d[u] 说明剩下的顶点与起点s不连通
         if (u == -1) return;
 
-
+        //u加入集合S
         vis[u] = true;
 
         for (int v = 0; v < n; ++v) {
+            // 优化剩下的顶点
             if (vis[v] == false && G[u][v] != INF && d[u] + G[u][v] < d[v]) {
                 d[v] = d[u] + G[u][v];
             }
