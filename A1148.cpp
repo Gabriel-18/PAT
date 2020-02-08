@@ -6,7 +6,7 @@
 #include <vector>
 #include <cmath>
 using namespace std;
-
+// 就是个暴力题 别纠结
 int main() {
     int n;
     cin >> n;
