@@ -1,0 +1,27 @@
+//
+// Created by kelper on 2020/2/11.
+//
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main() {
+    int n, a, num = 0;
+    cin >> n;
+
+    map<int,int> m;
+    for (int i = 0; i < n; ++i) {
+        cin >> a;
+        m[a] = 1;
+    }
+
+    while (++num) {
+        // 没有出现过
+        if (m[num] == 0) {
+            break;
+        }
+    }
+
+    cout << num;
+    return 0;
+}
