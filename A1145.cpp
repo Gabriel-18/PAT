@@ -45,7 +45,7 @@ int main() {
         for (int j = 0; j <= tSize; j++) {
             ans++;
             int pos = (a + j * j) % tSize;
-            // 冲突 或 找不到
+            // 查找到 或 找不到
             if (v[pos] == a || v[pos] == 0) {
                 break;
             }
