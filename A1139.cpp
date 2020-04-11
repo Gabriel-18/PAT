@@ -39,7 +39,7 @@ int main() {
         // 遍历同性朋友
         for (int j = 0; j < v[abs(c)].size(); ++j) {
             for (int k = 0; k < v[abs(d)].size(); ++k) {
-                // 遇到异性朋友跳过
+                // 跳过目标对象
                 if (v[abs(c)][j] == abs(d) || abs(c) == v[abs(d)][k]) {
                     continue;
                 }
