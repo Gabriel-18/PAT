@@ -11,13 +11,20 @@ int a[1009], n, isMin = 1, isMax = 1;
 // vector保存⼀一路路上的节点，通过push和 pop回溯，维护路路径
 void dfs(int index) {
     // 左右子节点没了
+    // 即是最后被访问的最后一个节点
+    // 这是一种大的情况
+    // 在里面还包含了一种 只有左节点的情况
     if (index * 2 > n && index * 2 + 1 > n) {
 //        index <= n是对只有左叶节点没有右叶节点的点特判
+//        即是index最极端的情况就是 他是某个节点的唯一左节点 也就是说index最大就是n了
+//        再大就错了
+//        不管怎么样index 肯定不能比n大了 必须小于等于n
         if (index <= n) {
             for (int i = 0; i < v.size(); ++i) {
                 printf("%d%s",v[i], i != v.size() - 1 ? " " : "\n");
             }
         }
+
 
         return;
     } else {
