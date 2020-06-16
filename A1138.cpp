@@ -1,47 +1,43 @@
-//
-// Created by kelper on 2020/3/29.
-//
+#include <bits/stdc++.h>
 
-#include <iostream>
-#include <vector>
 using namespace std;
-vector<int > pre, in;
+// 存前序
+vector<int> v;
+// 存中序 需要快速定位
+unordered_map<int, int> mp;
 bool flag = false;
-// 前中求后
-void postOrder(int preL, int inL, int inR) {
+void post(int inL,int inR, int preL){
+    // 退出条件
     if (inL > inR || flag == true) {
         return;
     }
 
-    int i = inL;
-    // 找到分界线 也就是根
-    while (in[i] != pre[preL]) {
-        i++;
-    }
-    // 左边界
-    postOrder(preL + 1, inL, i - 1);
-    // 右边界
-    postOrder(preL + 1 + i - inL, i + 1, inR);
+    int rootIndex = mp[v[preL]];
+    // 向左
+    post(inL, rootIndex - 1, preL + 1);
+    // 向右
+    post(rootIndex + 1, inR, preL + rootIndex - inL + 1);
+    // 第一次输出
     if (flag == false) {
-        printf("%d", in[i]);
+        printf("%d",v[preL]);
         flag = true;
     }
-}
 
+}
 int main() {
     int n;
     cin >> n;
-    pre.resize(n);
-    in.resize(n);
-
+    v.resize(n);
     for (int i = 0; i < n; ++i) {
-        cin >> pre[i];
+        cin >> v[i];
     }
 
+    int a;
     for (int i = 0; i < n; ++i) {
-        cin >> in[i];
+        cin >> a;
+        mp[a] = i;
     }
+    post(0,n-1,0);
 
-    postOrder(0, 0, n - 1);
     return 0;
 }
