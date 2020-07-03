@@ -1,72 +1,88 @@
-//
-// Created by kelper on 2020/2/5.
-//
+#include <bits/stdc++.h>
 
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <algorithm>
 using namespace std;
 struct node {
-    string t;
-    int value;
+    string id;
+    int score;
 };
-bool cmp(const node &a, const node &b) {
-    return a.value != b.value ? a.value > b.value : a.t < b.t;
+bool cmp(node a, node b){
+    return a.score != b.score ? a.score > b.score : a.id < b.id;
 }
 int main() {
-    int n, k, num;
+    int n, m;
+    cin >> n >> m;
     string s;
-    cin >> n >> k;
-    vector<node> v(n);
-
+    int score;
+    // 用pushback 不要初始化
+    vector<node> v;
     for (int i = 0; i < n; ++i) {
-        cin >> v[i].t >> v[i].value;
+        cin >> s >> score;
+        v.push_back(node{s, score});
     }
 
-    for (int i = 1; i <= k; ++i) {
-        cin >> num >> s;
-        printf("Case %d: %d %s\n", i, num, s.c_str());
+//    for (auto it : v) {
+//        printf("%s %d \n", it.id.c_str(), it.score);
+//    }
+
+    int type;
+    string term;
+    for (int i = 1; i <= m; ++i) {
+        cin >> type >> term;
+        printf("Case %d: %d %s\n", i, type, term.c_str());
         vector<node> ans;
         int cnt = 0, sum = 0;
-
-        if (num == 1) {
+        if (type == 1) {
+//            cout << "fuck" << endl;
             for (int j = 0; j < n; ++j) {
-                if (v[j].t[0] == s[0]) {
+                if (v[j].id[0] == term[0]) {
                     ans.push_back(v[j]);
                 }
             }
-        } else if (num == 2) {
+            sort(ans.begin(), ans.end(), cmp);
+            for (auto it  : ans) {
+                printf("%s %d\n", it.id.c_str(), it.score);
+            }
+            if (ans.size() == 0) {
+                printf("NA\n");
+            }
+
+        } else if (type == 2) {
             for (int j = 0; j < n; ++j) {
-                if (v[j].t.substr(1, 3) == s) {
-                    cnt++;
-                    sum += v[j].value;
+                if (v[j].id.substr(1,3) == term) {
+                    cnt ++;
+                    sum += v[j].score;
                 }
             }
             if (cnt != 0) {
                 printf("%d %d\n", cnt, sum);
+            } else if (cnt == 0) {
+                printf("NA\n");
             }
-        } else if (num == 3) {
-            unordered_map<string, int> m;
+
+        } else if (type == 3) {
+            unordered_map<string, int> map;
             for (int j = 0; j < n; ++j) {
-                if (v[j].t.substr(4, 6) == s) {
-                    m[v[j].t.substr(1,3)]++;
+                if (v[j].id.substr(4,6) == term) {
+                    map[v[j].id.substr(1,3)]++;
                 }
             }
 
-            for (auto it : m) {
-                ans.push_back({it.first, it.second});
+            for (auto it  : map) {
+               ans.push_back(node{it.first, it.second});
+            }
+
+            sort(ans.begin(), ans.end(),cmp);
+
+            for (auto it  : ans) {
+                printf("%s %d\n", it.id.c_str(), it.score);
+            }
+
+            if (ans.size() == 0) {
+                printf("NA\n");
             }
         }
-        sort(ans.begin(), ans.end(), cmp);
-        for (int j = 0; j < ans.size(); ++j) {
-            printf("%s %d\n", ans[j].t.c_str(), ans[j].value);
-        }
 
-        if (((num == 1 || num == 3) && ans.size() == 0) ||
-            (num == 2 && cnt == 0)) {
-            printf("NA\n");
-        }
+
     }
     return 0;
 }
