@@ -21,8 +21,7 @@ int main() {
     }
 
 //    for (auto it : v) {
-//        printf("%s %d \n", it.id.c_str(), it.score);
-//    }
+//        printf("%s %d \n", it.id.c_str(), it.score);lkk }
 
     int type;
     string term;
