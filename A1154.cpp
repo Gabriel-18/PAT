@@ -1,50 +1,51 @@
-//
-// Created by kelper on 2020/2/6.
-//
+#include <bits/stdc++.h>
 
-
-#include <iostream>
-#include <vector>
-#include <set>
 using namespace std;
-// 用点描述边
+// 点描述边
 struct node {
-    int t1, t2;
+    int a, b;
 };
 
 int main() {
-    int n, m, k;
-    string s;
+    int n, m;
     cin >> n >> m;
-    vector<node> v(m);
 
+    // 怎么用点描述
+    // 边呢 用索引充当边
+    // 边与点与点关系
+    // 就是一个类似的map 题目给的很特别 直接就能做了
+    vector<node> v(m);
     for (int i = 0; i < m; ++i) {
-        scanf("%d %d", &v[i].t1, &v[i].t2);
+        cin >> v[i].a >> v[i].b;
     }
 
+    int k;
     cin >> k;
-    while (k--) {
-        // 颜色
-        int a[10008] = {0};
-        bool flag = true;
-        set<int> se;
-        for (int i = 0; i < n; ++i) {
-            scanf("%d", &a[i]);
-            se.insert(a[i]);
+    for (int i = 0; i < k; ++i) {
+        // 点对应的颜色
+        vector<int> c(n);
+        set<int> set;
+        int flag = 0;
+        // 初始化点对应的集合
+        for (int j = 0; j < n; ++j) {
+            cin >> c[j];
+            set.insert(c[j]);
         }
-        for (int i = 0; i < m; ++i) {
-            if (a[v[i].t1] == a[v[i].t2]) {
-                flag = false;
+
+        // 开始扫边
+        for (int l = 0; l < m; ++l) {
+            // 有一样颜色的
+            if (c[v[l].a] == c[v[l].b]) {
+                flag = 1;
                 break;
             }
         }
 
-        if (flag) {
-            printf("%d-coloring\n", se.size());
-        } else {
+        if (flag == 1) {
             printf("No\n");
+        } else {
+            printf("%d-coloring\n", set.size());
         }
     }
-
     return 0;
 }
