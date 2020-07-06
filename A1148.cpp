@@ -28,6 +28,8 @@ int main() {
                 }
             }
 
+            // 两个谎言
+            // 一人一狼
             if (lie.size() == 2 && a[lie[0]] + a[lie[1]] == 0) {
                 cout << i << " " << j;
                 return 0;
