@@ -1,66 +1,78 @@
-//
-// Created by kelper on 2020/2/9.
-//
+#include <bits/stdc++.h>
 
-#include <iostream>
-#include <vector>
-#include <set>
 using namespace std;
-// n 是顶点数
-int e[202][202], n, m, k, ans = 999999999, ansid;
-vector<int > v;
-
-void check(int index) {
-    int sum = 0, cnt, flag = 1;
-    cin >> cnt;
-    set<int> s;
-    vector<int> v(cnt);
-    for (int i = 0; i < cnt; ++i) {
-        cin >> v[i];
-        s.insert(v[i]);
-    }
-
-    for (int i = 0; i < cnt - 1; ++i) {
-        // 相邻的两个顶点不可访问
-        if (e[v[i]][v[i + 1]] == 0) {
-            flag = 0;
-        }
-        sum += e[v[i]][v[i + 1]];
-    }
-
-    if (flag == 0) {
-        printf("Path %d: NA (Not a TS cycle)\n", index);
-        // 首尾不同 或者 没有访问过图中所有点
-    } else if (v[0] != v[cnt - 1] || s.size() != n) {
-        printf("Path %d: %d (Not a TS cycle)\n", index, sum);
-        // 是否源点访问两次
-    } else if (cnt != n + 1) {
-        printf("Path %d: %d (TS cycle)\n", index, sum);
-        if (sum < ans) {
-            ans = sum;
-            ansid = index;
-        }
-    } else {
-        printf("Path %d: %d (TS simple cycle)\n", index, sum);
-        if (sum < ans) {
-            ans = sum;
-            ansid = index;
-        }
-    }
-}
+int e[202][202];
 int main() {
+    int n, m;
     cin >> n >> m;
+    int a, b, v;
     for (int i = 0; i < m; ++i) {
-        int t1, t2, t;
-        cin >> t1 >> t2 >> t;
-        e[t1][t2] = e[t2][t1] = t;
+       cin >> a >> b >> v;
+       e[a][b] = e[b][a] = v;
     }
 
+    int k;
     cin >> k;
-
+    int n1;
+    int dist = INT_MAX;
+    int index = -1;
     for (int i = 1; i <= k; ++i) {
-        check(i);
+        cin >> n1;
+        vector<int> path(n1);
+        int sum = 0;
+        set<int> set;
+        for (int j = 0; j < n1; ++j) {
+            cin >> path[j];
+            set.insert(path[j]);
+        }
+        int flag = 0;
+        for (int l = 0; l < n1 - 1; ++l) {
+            // NA
+            if (e[path[l]][path[l + 1]] == 0) {
+                flag = 1;
+                break;
+            }
+            sum += e[path[l]][path[l + 1]];
+        }
+        // NA
+        if (flag == 1) {
+            printf("Path %d: NA (Not a TS cycle)\n", i);
+            // 没访问所有 或者 有不通的
+        } else if (path[0] != path[n1 - 1] || set.size() != n) {
+            printf("Path %d: %d (Not a TS cycle)\n", i, sum);
+            // 多个点
+        } else if (n1 > n + 1) {
+
+            if (dist > sum) {
+                dist = sum;
+                index = i;
+            }
+            printf("Path %d: %d (TS cycle)\n", i, sum);
+            // 恰好
+        } else {
+            if (dist > sum) {
+                dist = sum;
+                index = i;
+            }
+            printf("Path %d: %d (TS simple cycle)\n", i, sum);
+        }
+
+//        if (dist > sum && flag == 0 && set.size() == n && path[0] == path[n1 - 1] ) {
+//            dist = sum;
+//            index = i;
+//        }
+//        if (set.size() == n && path.size() == n + 1 && path[0] == path[n1 - 1] && flag == 0) {
+//            printf("Path %d: %d (TS simple cycle)\n", i, sum);
+//        } else if (set.size() == n && path[0] == path[n1 - 1] && flag == 0) {
+//            printf("Path %d: %d (TS cycle)\n",i, sum);
+//        } else if (flag == 1) {
+//            printf("Path %d: NA (Not a TS cycle)\n",i);
+//        } else {
+//            printf("Path %d: %d (Not a TS cycle)\n", i, sum);
+//        }
+//    }
     }
-    printf("Shortest Dist(%d) = %d\n", ansid, ans);
-    return 0;
+        printf("Shortest Dist(%d) = %d", index, dist);
+        return 0;
+
 }
