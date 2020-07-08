@@ -1,27 +1,34 @@
-//
-// Created by kelper on 2020/2/11.
-//
-#include <iostream>
-#include <map>
+#include <bits/stdc++.h>
+
 using namespace std;
 
 int main() {
-    int n, a, num = 0;
+    int n;
     cin >> n;
-
-    map<int,int> m;
+    map<int, int> map;
+    int a;
     for (int i = 0; i < n; ++i) {
         cin >> a;
-        m[a] = 1;
+        if (a > 0) map[a] = 1;
     }
 
-    while (++num) {
-        // 没有出现过
-        if (m[num] == 0) {
+//    for (int i = 1;; ++i) {
+//        if (map[i] == 0) {
+//            cout << i;
+//            break;
+//        }
+//    }
+
+    int num = 1;
+    while (true) {
+        if (map[num] == 0) {
+            cout << num;
             break;
         }
+        num++;
     }
 
-    cout << num;
+
+
     return 0;
 }
