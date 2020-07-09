@@ -1,12 +1,11 @@
-//
-// Created by kelper on 2020/2/13.
-//
-#include <iostream>
-#include <vector>
-#include <map>
+#include <bits/stdc++.h>
+
 using namespace std;
 bool isPrime(int n) {
-    for (int i = 2; i * i <= n; i++) {
+    if (n == 1 || n == 0) {
+        return false;
+    }
+    for (int i = 2; i * i <= n; ++i) {
         if (n % i == 0) {
             return false;
         }
@@ -14,45 +13,53 @@ bool isPrime(int n) {
     return true;
 }
 int main() {
-    int tSize, n, m, a;
-    cin >> tSize >> n >> m;
-    while (!isPrime(tSize)) {
-        tSize++;
+    int msize, n, m;
+    cin >> msize >> n >> m;
+    while (true) {
+        if (isPrime(msize)) {
+            break;
+        }
+        msize++;
     }
-
-    vector<int> v(tSize);
+    vector<int> v(msize);
+    int a;
+    // 初始化 散列表
+    // 插入数据
     for (int i = 0; i < n; ++i) {
         cin >> a;
         int flag = 0;
-        for (int j = 0; j < tSize; ++j) {
-            // 开始探测
-            int pos = (a + j * j) % tSize;
+        for (int j = 0; j < msize; ++j) {
+            // hash
+            int pos = (a + j * j) % msize;
             if (v[pos] == 0) {
                 v[pos] = a;
                 flag = 1;
+                // 插入成功
+                // 不需要计算hash了
                 break;
             }
         }
-        if (!flag) {
-            printf("%d cannot be inserted.\n", a);
+        // 无法解决冲突
+        if (flag == 0) {
+            printf("%d cannot be inserted.\n",a);
         }
     }
-    int ans = 0;
+
+    int sum = 0;
     for (int i = 0; i < m; ++i) {
         cin >> a;
-        // 如果扫描完也找不到 则需要ans+1
-        // 所以多算一次 所以这里取了等号
-        for (int j = 0; j <= tSize; j++) {
-            ans++;
-            int pos = (a + j * j) % tSize;
-            // 查到了 或 找不到
-            if (v[pos] == a || v[pos] == 0) {
+        for (int j = 0; j <= msize; ++j) {
+            // hash
+            int pos = (a + j * j) % msize;
+            sum++;
+            // 查找成功
+            // 这里面根本没有就是没找到 直接退出
+            if (v[pos] == 0 || v[pos] == a) {
+                // 不需要计算hash了
                 break;
             }
         }
-
-
     }
-    printf("%.1lf\n", ans * 1.0 / m);
+    printf("%.1lf", sum * 1.0 / m);
     return 0;
 }
