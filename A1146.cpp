@@ -1,51 +1,72 @@
-//
-// Created by kelper on 2020/2/13.
-//
+#include <bits/stdc++.h>
 
-//分析：⽤用邻接表v存储这个有向图，并将每个节点的⼊入度保存在in数组中
-//对每⼀一个要判断是否是拓扑序列
-// 如果当前结点的⼊度不为0则表示不是拓拓扑序列列，
-// 每次选中某个点后要将它所指向的 所有结点的入度-1，
-// 后根据是否出现过⼊度不为0的点
-// 决定是否要输出当前的编号i
-// flag是⽤用来判断 之前是否输出过
-// 现在是否要输出空格的～
-// judge是⽤用来判断是否是拓拓扑序列列的
-#include <iostream>
-#include <vector>
 using namespace std;
+
 int main() {
-    int n, m, a, b, k, flag = 0, in[1010];
-    vector<int> v[1010];
+    int n, m;
+//    vector<int> v[10002];
+
     cin >> n >> m;
-    for (int i = 0; i < m; ++i) {
+    map<int, vector<int>> v;
+    vector<int> in(n + 1);
+    int a, b;
+    for (int i = 1; i <= m; ++i) {
         cin >> a >> b;
         v[a].push_back(b);
+        // a - > b
+        // b入度+1
         in[b]++;
     }
 
+//    for (int i = 1; i <= n; ++i) {
+//        printf("%d %d\n",i,in[i]);
+//    }
+
+    int k;
     cin >> k;
-
+    int isPrint = 0;
     for (int i = 0; i < k; ++i) {
-        int judge = 1;
-        // 保证一次遍历后 in 维持不变
-        vector<int> tin(in, in + n + 1);
-        for (int j = 0; j < n; ++j) {
-            cin >> a;
-            if (tin[a] != 0) {
-                judge = 0;
-            }
+        vector<int> tin(n + 1);
+        // 拷贝
+        for (int j = 1; j <= n; ++j) {
+            tin[j] = in[j];
+        }
 
-            for (int it : v[a]) {
-                tin[it]--;
+        int v1;
+        int flag = 0;
+        // 必须把数读完
+        for (int j = 1; j <= n; ++j) {
+            cin >> v1;
+            // 入度为0 且 没有
+            // 判断条件写的复杂了
+            // 判断不是 比这个容易 这个判断还容易写错
+            // tin 和 in可能写混
+            if (tin[v1] == 0 && flag == 0) {
+                for (auto it : v[v1]) {
+                    // v1 指向的点
+                    // 入度减一
+                    tin[it]--;
+                }
+            } else {
+                flag = 1;
             }
         }
-        if (judge == 1) {
-            continue;
+
+//        if (flag == 1) {
+//            if (isPrint == 0) {
+//                isPrint = 1;
+//                printf("%d",i);
+//            }else {
+//                printf( " %d", i);
+//            }
+//        }
+
+
+        if (flag == 1) {
+            printf("%s%d", isPrint == 0 ? "" : " ", i);
+            isPrint = 1;
         }
-        // flag == 0 时 首次
-        printf("%s%d", flag == 1 ? " " : "", i);
-        flag = 1;
     }
+
     return 0;
 }
