@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
+// 双指针
 int main() {
     int  n;
     string d;
@@ -17,6 +17,7 @@ int main() {
                 }
                 else count++;
             }
+            // 注意类型转化
             s += d[j] + to_string(count);
 //            s += d[j] + count;
         }
