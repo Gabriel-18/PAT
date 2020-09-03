@@ -1,49 +1,57 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
-
-
 struct node {
-    int id, data, next;
-} a[1000005];
+    int address, data, next;
+}a[1000005];
 
+// 主要是装入的问题
+// 画图
 int main() {
-    int begin, n, k, s, d, e;
+    int begin, n, k;
     cin >> begin >> n >> k;
     vector<node> v, ans;
-    for (int i = 0; i < n; i++) {
-        scanf("%d %d %d\n", &s, &d, &e);
-        a[s] = {s, d, e};
+    int start, data, next;
+    
+    // 读数据
+    for (int i = 0; i < n; ++i) {
+        cin >> start >> data >> next;
+        a[start] = {start, data, next}; 
     }
-    // 静态链表的遍历
+
+    // 将链表装入数组
     for (; begin != -1; begin = a[begin].next) {
         v.push_back(a[begin]);
     }
-    int len = v.size(), j = 0;
-    int m;
-    // 多出来
-    // 不足一个block的部分
-    int remain = len % k;
 
+    int len = v.size(), j = 0;
+    // 计算不足一个block的数量
+    int remain = len % k;
+    int group = 0;
     ans.resize(len);
-    // 有点类似cache映射
-    for (int i = 0; i < len; i++) {
+    // 遍历数组
+    for (int i = 0; i < len; ++i) {
+        // 前面那几个完整的block
+        // 1 - len / k group
         if (i < len - remain) {
-            // 映射到哪个组
-            m = len / k - i / k - 1;
-            ans[k * m + j + remain] = v[i];
+            // 0 - len / k
+            group = len / k - i / k - 1;
+            int index = k * group + j + remain;
+            ans[index] = v[i];
+            // 组内偏离
             j = (j + 1) % k;
         } else {
-            // 不足1个block的那个组
+            // 直接映射到 0号组
             ans[i % k] = v[i];
         }
     }
-    for (int i = 0; i < len; i++) {
-        if (i != len - 1) {
-            printf("%05d %d %05d\n", ans[i].id, ans[i].data, ans[i + 1].id);
+
+    for (int i = 0; i < len; ++i) {
+        if (i != ans.size() - 1) {
+            printf("%05d %d %05d\n", ans[i].address, ans[i].data, ans[i + 1].address);
         } else {
-            printf("%05d %d -1", ans[i].id, ans[i].data);
+            printf("%05d %d -1\n",ans[i].address,ans[i].data);
         }
     }
+    
     return 0;
 }
